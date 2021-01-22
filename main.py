@@ -15,7 +15,8 @@ for file in files:
     IS_data = pd.DataFrame(pd.read_excel(path + '\\' + file, sheet_name="Income Statement"))  # 获得每一个sheet中的内容
     IS_data = IS_data.replace("Restated\\n", "", regex=True)
     IS_data = IS_data.replace("Reclassified\\n", "", regex=True)
-
+    IS_data = IS_data.replace("LTM\\n", "", regex=True)
+    IS_data = IS_data.replace("12 months\\n", "", regex=True)
 
     Company_name = IS_data.iloc[3].values.tolist()
     Company = pd.DataFrame(Company_name).dropna()
@@ -25,10 +26,10 @@ for file in files:
     Fiscal_year = IS_data.iloc[13].values.tolist()
     Fiscal_year_final = [Fiscal_year]
     Fiscal = pd.DataFrame(Fiscal_year_final)
+    Fiscal.iloc[0] = row_string + '_' + Fiscal.iloc[0].astype(str)
     print(Fiscal)
     Fiscal.to_csv(path + '\\' + "Fiscal_" + row_string + ".csv", mode='a', index=False, header=None, date_format='%Y%m%d')
 
     Item_value = IS_data[IS_data.iloc[:, 0].str.contains(row_string, na=False)].values.tolist()
     Item = pd.DataFrame(Item_value)
     Item.to_csv(path + '\\' + "Fiscal_" + row_string + ".csv", mode='a', index=False, header=None, date_format='%Y%m%d')
-
