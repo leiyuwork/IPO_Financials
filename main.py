@@ -37,7 +37,7 @@ for file in files:
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
 
-    IS_data = pd.DataFrame(pd.read_excel(path_in + '\\' + file, sheet_name="Income Statement"))  # sheet内容取得
+    IS_data = pd.DataFrame(pd.read_excel(path_in + '\\' + file, sheet_name=sheet_string))  # sheet内容取得
     IS_data = IS_data.replace("Restated\\n", "", regex=True)  # 不要情報を削除
     IS_data = IS_data.replace("Reclassified\\n", "", regex=True)  # 不要情報を削除
     IS_data = IS_data.replace("LTM\\n", "", regex=True)  # 不要情報を削除
